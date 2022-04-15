@@ -1,15 +1,15 @@
-const mongoCollections = require('../config/mongoCollections');
+const mongoCollections = require("../config/mongoCollections");
 const parks = mongoCollections.parks;
 
 module.exports = {
   async createPark(name, opentime, closetime, location) {
     if (!name || !opentime || !closetime || !location)
-      throw 'please provide all inputs';
-    
-    const parkCollection = await parks();
-    const park = await parkCollection.findOne({ name: name.toLowerCase()});
-    if (park !== null) throw 'this park has been registered!';
+      throw "please provide all inputs";
 
+    const parkCollection = await parks();
+    const park = await parkCollection.findOne({ name: name.toLowerCase() });
+    if (park !== null) throw "this park has been registered!";
+    //Open and Close Time in format "MM/DD/YEAR" should do a check here
     const newId = ObjectId();
     const newOpentime = new Date(opentime);
     const newClosetime = new Date(closetime);
@@ -21,11 +21,11 @@ module.exports = {
       location: location,
       activities: [],
       comments: [],
-      averageRating: 0
+      averageRating: 0,
     };
     const insertInfo = await parkCollection.insertOne(newPark);
     if (!insertInfo.acknowledged || !insertInfo.insertedId)
-      throw 'Could not add a park';
+      throw "Could not add a park";
     return true;
-  }
-}
+  },
+};
