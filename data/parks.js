@@ -1,5 +1,6 @@
 const mongoCollections = require("../config/mongoCollections");
 const parks = mongoCollections.parks;
+const { ObjectId } = require("mongodb");
 
 module.exports = {
   async createPark(name, opentime, closetime, location) {
@@ -9,7 +10,7 @@ module.exports = {
     const parkCollection = await parks();
     const park = await parkCollection.findOne({ name: name.toLowerCase() });
     if (park !== null) throw "this park has been registered!";
-    //Open and Close Time in format "MM/DD/YEAR" should do a check here
+    //Open and Close Time in format "00:00" should do a check here
     const newId = ObjectId();
     const newOpentime = new Date(opentime);
     const newClosetime = new Date(closetime);
