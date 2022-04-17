@@ -7,7 +7,7 @@ const appointments = require("../data/appointments");
 async function test(){
     // try {
     //     // create a new user:
-    //     await users.createUser("Yuheng", "Xiao", "qq756951570@gmail.com", "Xh123456");
+    //     await users.createUser("Yuheng", "Xiao", "yxiao38@stevens.edu", "Xyh123456");
     //     console.log('create a new user successfully');
     // } catch (e) {
     //     console.error(e);
