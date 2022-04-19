@@ -29,7 +29,8 @@ module.exports = {
     const insertInfo = await parkCollection.insertOne(newPark);
     if (!insertInfo.acknowledged || !insertInfo.insertedId)
       throw "Could not add a park";
-    return true;
+    return insertInfo;
+    //intertInfo.insertedId;
   },
   async removePark(id) {
     if (!id) throw "please provide park ID";
@@ -46,8 +47,8 @@ module.exports = {
       throw "please provide all inputs";
     if (!ObjectId.isValid(id)) throw "invalid park ID";
 
-    const newOpentime = new Date(opentime);
-    const newClosetime = new Date(closetime);
+    const newOpentime = func.checkTime(opentime);
+    const newClosetime = func.checkTime(closetime);
     let parkUpdateInfo = {
       name: name,
       openTime: newOpentime,
@@ -77,6 +78,14 @@ module.exports = {
 
     const parkCollection = await parks();
     const park = await parkCollection.findOne({ _id: ObjectId(id) });
+    if (park === null) throw "could not get that parks";
+    return park;
+  },
+  async getParkByName(name) {
+    if (!name) throw "please provide park name";
+
+    const parkCollection = await parks();
+    const park = await parkCollection.findOne({ name: name.toLowerCase() });
     if (park === null) throw "could not get that parks";
     return park;
   },
