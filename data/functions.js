@@ -1,31 +1,26 @@
 // This file provides validator functions
 
 function checkUserName(string) {
-  if (typeof string === 'string' || string instanceof String) {
-    if (string.indexOf(" ") !== -1)
-      throw 'name should not have space';
-    if (string.trim().length < 3)
-      throw 'name should be at least 3 chars long';
+  if (typeof string === "string" || string instanceof String) {
+    if (string.indexOf(" ") !== -1) throw "name should not have space";
+    if (string.trim().length < 3) throw "name should be at least 3 chars long";
   } else {
     throw "not a string";
   }
 }
 function checkEmail(string) {
-  if (!string.includes('.'))
-    throw 'email should have a dot';
-  if (!string.lastIndexOf('.') > (email.length - 3))
-    throw 'should have at least 2 letters after dot';
-  if (!string.indexOf('.') === 0 || email.indexOf('@') === 0)
-    throw 'email should start with letter';
-  if (string.indexOf('@') === -1)
-    throw 'email should have @';
+  if (!string.includes(".")) throw "email should have a dot";
+  if (!string.lastIndexOf(".") > email.length - 3)
+    throw "should have at least 2 letters after dot";
+  if (!string.indexOf(".") === 0 || email.indexOf("@") === 0)
+    throw "email should start with letter";
+  if (string.indexOf("@") === -1) throw "email should have @";
 }
 function checkPassword(string) {
-  if (typeof string === 'string' || string instanceof String) {
-    if (string.indexOf(" ") !== -1)
-      throw 'password should not have space';
+  if (typeof string === "string" || string instanceof String) {
+    if (string.indexOf(" ") !== -1) throw "password should not have space";
     if (string.trim().length < 8)
-      throw 'password should be at least 8 chars long';
+      throw "password should be at least 8 chars long";
   } else {
     throw "not a string";
   }
@@ -45,23 +40,26 @@ function checkId(string) {
   return ObjectId.isValid(string);
 }
 function checkRating(val) {
-  if (typeof val !== "number")
-    return false;
-  if (isNaN(val))
-    return false;
+  if (typeof val !== "number") return false;
+  if (isNaN(val)) return false;
   return !(val < 0 || val > 5);
 }
 function checkString(string) {
-  if (!string)
-    return false;
-  if (typeof string === 'string' || string instanceof String) {
-    if (string.trim().length === 0)
-      return false;
+  if (!string) return false;
+  if (typeof string === "string" || string instanceof String) {
+    if (string.trim().length === 0) return false;
   } else {
     return false;
   }
   return true;
 }
+const checkTime = (string) => {
+  const time = string.trim();
+  if (time[2] !== ":" || time.length > 5) {
+    throw `time should be in "00:00" format`;
+  }
+  return time;
+};
 module.exports = {
   checkUserName,
   checkEmail,
@@ -69,5 +67,6 @@ module.exports = {
   computeRating,
   checkId,
   checkRating,
-  checkString
-}
+  checkString,
+  checkTime,
+};
